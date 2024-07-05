@@ -94,24 +94,34 @@ document.getElementById('feedbackForm').addEventListener('submit', function(even
     }
 });
 
-function validateForm() {
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const subject = document.getElementById('subject').value.trim();
-    const message = document.getElementById('message').value.trim();
+    function validateForm() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
 
-    // Check if all fields are filled
-    if (name === '' || email === '' || subject === '' || message === '') {
-        alert('Please fill in all fields.');
-        return false;
+        // Check if all fields are filled
+        if (name === '' || email === '' || message === '') {
+            alert('Please fill in all fields.');
+            return false;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            return false;
+        }
+
+        return true;
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Please enter a valid email address.');
-        return false;
+    function showToast() {
+        const toastElement = document.getElementById('successToast');
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
     }
 
-    return true;
-}
+    function resetForm() {
+        form.reset();
+    }
+});
